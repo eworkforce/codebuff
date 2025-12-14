@@ -18,6 +18,7 @@ import {
   OpenAICompatibleChatLanguageModel,
   VERSION,
 } from '@codebuff/internal/openai-compatible/index'
+import { createGoogleGenerativeAI } from '@ai-sdk/google'
 import { streamText, APICallError, generateText, generateObject } from 'ai'
 
 import { WEBSITE_URL } from '../constants'
@@ -120,6 +121,18 @@ function getAiSdkModel(params: {
   model: string
 }): LanguageModelV2 {
   const { apiKey, model } = params
+
+  // For Google models, use the Google AI SDK directly if GOOGLE_GENERATIVE_AI_API_KEY is set
+  const googleApiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY
+  if (model.startsWith('google/') && googleApiKey) {
+    const google = createGoogleGenerativeAI({
+      apiKey: googleApiKey,
+      baseURL: 'https://generativelanguage.googleapis.com/v1beta',
+    })
+    // Strip 'google/' prefix to get the actual model name
+    const googleModelName = model.replace('google/', '')
+    return google(googleModelName) as LanguageModelV2
+  }
 
   const openrouterUsage: OpenRouterUsageAccounting = {
     cost: null,

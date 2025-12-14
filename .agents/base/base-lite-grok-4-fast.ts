@@ -12,7 +12,7 @@ const definition: SecretAgentDefinition = {
   id: 'base-lite-grok-4-fast',
   displayName: 'Base Lite Grok 4 Fast',
   publisher,
-  model: 'x-ai/grok-4-fast',
+  model: 'google/gemini-2.5-flash',
   spawnableAgents: [
     'file-explorer',
     'find-all-referencer',

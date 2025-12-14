@@ -19,10 +19,10 @@ export function createCodeReviewerBestOfN(
   return {
     publisher,
     model: isGpt5
-      ? 'openai/gpt-5.1'
+      ? 'google/gemini-2.5-pro'
       : isGemini
         ? 'google/gemini-3-pro-preview'
-        : 'anthropic/claude-sonnet-4.5',
+        : 'google/gemini-3-pro-preview',
     displayName: isGpt5
       ? 'Best-of-N GPT-5 Code Reviewer'
       : isGemini

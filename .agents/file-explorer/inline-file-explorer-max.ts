@@ -7,7 +7,7 @@ const definition: SecretAgentDefinition = {
   displayName: 'Inline File Explorer Max',
   spawnerPrompt:
     'Ask this agent to explore area of the codebase and read all relevant files. Spawn this agent inline',
-  model: 'anthropic/claude-sonnet-4.5',
+  model: 'google/gemini-3-pro-preview',
   publisher,
   outputMode: 'last_message',
   includeMessageHistory: true,

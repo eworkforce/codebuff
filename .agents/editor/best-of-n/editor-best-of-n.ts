@@ -16,7 +16,7 @@ export function createBestOfNEditor(
   const isMax = model === 'max'
   return {
     publisher,
-    model: 'anthropic/claude-sonnet-4.5',
+    model: 'google/gemini-3-pro-preview',
     displayName: isDefault ? 'Best-of-N Editor' : 'Best-of-N Max Editor',
     spawnerPrompt:
       'Edits code by orchestrating multiple implementor agents to generate implementation proposals, selects the best one, and applies the changes. Do not specify an input prompt for this agent; it inherits the context of the entire conversation with the user. Make sure to read any files intended to be edited before spawning this agent as it cannot read files on its own.',

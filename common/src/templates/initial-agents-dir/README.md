@@ -53,7 +53,7 @@ Here's an example of a `git-committer` agent that creates good commit messages:
 export default {
   id: 'git-committer',
   displayName: 'Git Committer',
-  model: 'openai/gpt-5-nano',
+  model: 'google/gemini-2.5-flash',
   toolNames: ['read_files', 'run_terminal_command', 'end_turn'],
 
   instructionsPrompt:
@@ -84,7 +84,7 @@ Each agent is a TypeScript file that exports an `AgentDefinition` object:
 export default {
   id: 'my-agent', // Unique identifier (lowercase, hyphens only)
   displayName: 'My Agent', // Human-readable name
-  model: 'claude-3-5-sonnet', // AI model to use
+  model: 'google/gemini-2.5-pro', // AI model to use
   toolNames: ['read_files', 'write_file'], // Available tools
   instructionsPrompt: 'You are...', // Agent behavior instructions
   spawnerPrompt: 'Use this agent when...', // When others should spawn this
@@ -170,9 +170,9 @@ async *handleSteps() {
 
 Choose models based on your agent's needs:
 
-- **`anthropic/claude-sonnet-4`**: Best for complex reasoning and code generation
-- **`openai/gpt-5`**: Strong general-purpose capabilities
-- **`x-ai/grok-4-fast`**: Fast and cost-effective for simple or medium-complexity tasks
+- **`google/gemini-3-pro-preview`**: Best for complex reasoning and code generation
+- **`google/gemini-2.5-pro`**: Strong general-purpose capabilities
+- **`google/gemini-2.5-flash`**: Fast and cost-effective for simple or medium-complexity tasks
 
 **Any model on OpenRouter**: Unlike Claude Code which locks you into Anthropic's models, Codebuff supports any model available on [OpenRouter](https://openrouter.ai/models) - from Claude and GPT to specialized models like Qwen, DeepSeek, and others. Switch models for different tasks or use the latest releases without waiting for platform updates.
 

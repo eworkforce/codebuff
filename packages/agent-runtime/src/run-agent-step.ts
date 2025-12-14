@@ -207,7 +207,7 @@ export const runAgentStep = async (
     additionalToolDefinitions: () => {
       const additionalToolDefinitions = cloneDeep(
         Object.fromEntries(
-          Object.entries(fileContext.customToolDefinitions).filter(
+          Object.entries(fileContext.customToolDefinitions ?? {}).filter(
             ([toolName]) => agentTemplate.toolNames.includes(toolName),
           ),
         ),
@@ -593,7 +593,7 @@ export async function loopAgentSteps(
     additionalToolDefinitions: () => {
       const additionalToolDefinitions = cloneDeep(
         Object.fromEntries(
-          Object.entries(fileContext.customToolDefinitions).filter(
+          Object.entries(fileContext.customToolDefinitions ?? {}).filter(
             ([toolName]) => agentTemplate.toolNames.includes(toolName),
           ),
         ),
@@ -620,7 +620,7 @@ export async function loopAgentSteps(
           additionalToolDefinitions: () => {
             const additionalToolDefinitions = cloneDeep(
               Object.fromEntries(
-                Object.entries(fileContext.customToolDefinitions).filter(
+                Object.entries(fileContext.customToolDefinitions ?? {}).filter(
                   ([toolName]) => agentTemplate.toolNames.includes(toolName),
                 ),
               ),

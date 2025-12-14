@@ -7,7 +7,7 @@ const readOnlyCommanderLite: SecretAgentDefinition = {
   id: 'read-only-commander-lite',
   displayName: 'ReadOnly Commander Lite',
   publisher,
-  model: 'x-ai/grok-4-fast',
+  model: 'google/gemini-2.5-flash',
   spawnerPrompt:
     'Can run quick read-only terminal commands and report back on the results. Has a basic understanding of the codebase. Is speedy and low-cost,',
 }

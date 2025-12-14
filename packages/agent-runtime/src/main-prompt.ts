@@ -195,6 +195,12 @@ export async function callMainPrompt(
   const { action, promptId, sendAction, logger } = params
   const { fileContext } = action.sessionState
 
+  // Ensure critical fileContext fields are initialized with defaults
+  fileContext.customToolDefinitions ??= {}
+  fileContext.knowledgeFiles ??= {}
+  fileContext.userKnowledgeFiles ??= {}
+  fileContext.agentTemplates ??= {}
+
   // Enforce server-side state authority: reset creditsUsed to 0
   // The server controls cost tracking, clients cannot manipulate this value
   action.sessionState.mainAgentState.creditsUsed = 0

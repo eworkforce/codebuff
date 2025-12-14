@@ -14,7 +14,7 @@ export const createBase2WithTaskResearcher: () => Omit<
 > = () => {
   return {
     publisher,
-    model: 'openai/gpt-5.1',
+    model: 'google/gemini-2.5-pro',
     displayName: 'Buffy the Orchestrator',
     spawnerPrompt:
       'Advanced base agent that orchestrates planning, editing, and reviewing for complex coding tasks',

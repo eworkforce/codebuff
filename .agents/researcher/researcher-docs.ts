@@ -4,7 +4,7 @@ import { publisher } from '../constants'
 const definition: SecretAgentDefinition = {
   id: 'researcher-docs',
   publisher,
-  model: 'x-ai/grok-4-fast',
+  model: 'google/gemini-2.5-flash',
   displayName: 'Doc',
   spawnerPrompt: `Expert at reading technical documentation of major public libraries and frameworks to find relevant information. (e.g. React, MongoDB, Postgres, etc.)`,
   inputSchema: {

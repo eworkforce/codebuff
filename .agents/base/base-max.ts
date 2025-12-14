@@ -6,7 +6,7 @@ import type { SecretAgentDefinition } from '../types/secret-agent-definition.ts'
 const definition: SecretAgentDefinition = {
   id: 'base-max',
   publisher,
-  ...base('anthropic/claude-sonnet-4.5', 'max'),
+  ...base('google/gemini-3-pro-preview', 'max'),
   spawnableAgents: [
     'file-explorer',
     'find-all-referencer',

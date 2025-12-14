@@ -106,7 +106,7 @@ For example, here's a `git-committer` agent that creates git commits based on th
 export default {
   id: 'git-committer',
   displayName: 'Git Committer',
-  model: 'openai/gpt-5-nano',
+  model: 'google/gemini-2.5-flash',
   toolNames: ['read_files', 'run_terminal_command', 'end_turn'],
 
   instructionsPrompt:
@@ -156,7 +156,7 @@ const result = await client.run({
 const myCustomAgent: AgentDefinition = {
   id: 'greeter',
   displayName: 'Greeter',
-  model: 'openai/gpt-5.1',
+  model: 'google/gemini-2.5-flash',
   instructionsPrompt: 'Say hello!',
 }
 await client.run({

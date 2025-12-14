@@ -14,10 +14,10 @@ export const createBestOfNSelector = (options: {
   return {
     publisher,
     model: isSonnet
-      ? 'anthropic/claude-sonnet-4.5'
+      ? 'google/gemini-3-pro-preview'
       : isGemini
         ? 'google/gemini-3-pro-preview'
-        : 'openai/gpt-5.1',
+        : 'google/gemini-2.5-pro',
     ...(isGpt5 && {
       reasoningOptions: {
         effort: 'high',

@@ -12,7 +12,7 @@ export const createResearchImplementOrchestrator: () => Omit<
 > = () => {
   return {
     publisher,
-    model: 'anthropic/claude-sonnet-4.5',
+    model: 'google/gemini-3-pro-preview',
     displayName: 'Buffy the Research & Implement Orchestrator',
     spawnerPrompt:
       'Advanced base agent that orchestrates research and implementation for complex coding tasks',

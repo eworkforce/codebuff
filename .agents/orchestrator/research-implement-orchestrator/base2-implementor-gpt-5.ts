@@ -12,7 +12,7 @@ export const createBase2Implementor: () => Omit<
 > = () => {
   return {
     publisher,
-    model: 'openai/gpt-5.1',
+    model: 'google/gemini-2.5-pro',
     displayName: 'Buffy the Implementor',
     spawnerPrompt:
       'Advanced base agent that orchestrates planning, editing, and reviewing for complex coding tasks',

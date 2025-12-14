@@ -7,7 +7,7 @@ import type {
 const independentThinker: AgentDefinition = {
   id: 'independent-thinker',
   publisher,
-  model: 'anthropic/claude-sonnet-4.5',
+  model: 'google/gemini-3-pro-preview',
   displayName: 'Independent Thinker',
   spawnerPrompt:
     'A strong independent thinking agent that analyzes specific files or does research without seeing the conversation history. Useful for getting fresh perspectives and analysis on code or a research question without context pollution. You must provide all the relevant context (via the prompt or filePaths) for this agent to work well.',

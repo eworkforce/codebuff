@@ -7,7 +7,7 @@ import { publisher } from '../constants'
 const definition: SecretAgentDefinition = {
   id: 'researcher-grok-4-fast',
   publisher,
-  model: 'x-ai/grok-4-fast',
+  model: 'google/gemini-2.5-flash',
   displayName: 'Grok 4 Fast Researcher',
   toolNames: ['spawn_agents'],
   spawnableAgents: ['file-explorer', 'researcher-web', 'researcher-docs'],

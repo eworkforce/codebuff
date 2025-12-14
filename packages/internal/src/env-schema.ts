@@ -10,6 +10,7 @@ export const serverEnvSchema = clientEnvSchema.extend({
   LINKUP_API_KEY: z.string().min(1),
   CONTEXT7_API_KEY: z.string().optional(),
   GOOGLE_CLOUD_PROJECT_ID: z.string().min(1),
+  GOOGLE_GENERATIVE_AI_API_KEY: z.string().min(1),
   PORT: z.coerce.number().min(1000),
 
   // Web/Database variables
@@ -50,6 +51,7 @@ export const serverProcessEnv: ServerInput = {
   LINKUP_API_KEY: process.env.LINKUP_API_KEY,
   CONTEXT7_API_KEY: process.env.CONTEXT7_API_KEY,
   GOOGLE_CLOUD_PROJECT_ID: process.env.GOOGLE_CLOUD_PROJECT_ID,
+  GOOGLE_GENERATIVE_AI_API_KEY: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
   PORT: process.env.PORT,
 
   // Web/Database variables

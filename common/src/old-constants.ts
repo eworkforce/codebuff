@@ -15,13 +15,13 @@ export const API_KEY_ENV_VAR = 'CODEBUFF_API_KEY'
 export const INVALID_AUTH_TOKEN_MESSAGE =
   'Invalid auth token. You may have been logged out from the web portal. Please log in again.'
 
-// Allowed model prefixes for validation
-export const ALLOWED_MODEL_PREFIXES = [
-  'anthropic',
-  'openai',
-  'google',
-  'x-ai',
-] as const
+// export const ALLOWED_MODEL_PREFIXES = [
+//   'anthropic',
+//   'openai',
+//   'google',
+//   'x-ai',
+// ] as const
+export const ALLOWED_MODEL_PREFIXES = ['google'] as const
 
 export const DEFAULT_IGNORED_PATHS = [
   '.git',
@@ -136,28 +136,28 @@ export const getModelForMode = (
   if (operation === 'agent') {
     return {
       lite: models.openrouter_gemini2_5_flash,
-      normal: models.openrouter_claude_sonnet_4,
-      max: models.openrouter_claude_sonnet_4,
-      experimental: models.openrouter_gemini2_5_pro_preview,
-      ask: models.openrouter_gemini2_5_pro_preview,
+      normal: models.openrouter_gemini2_5_pro_preview,
+      max: models.openrouter_gemini3_pro_preview,
+      experimental: models.openrouter_gemini3_pro_preview,
+      ask: models.openrouter_gemini3_pro_preview,
     }[costMode]
   }
   if (operation === 'file-requests') {
     return {
-      lite: models.openrouter_claude_3_5_haiku,
-      normal: models.openrouter_claude_3_5_haiku,
-      max: models.openrouter_claude_sonnet_4,
-      experimental: models.openrouter_claude_sonnet_4,
-      ask: models.openrouter_claude_3_5_haiku,
+      lite: models.openrouter_gemini2_5_flash_lite,
+      normal: models.openrouter_gemini2_5_flash,
+      max: models.openrouter_gemini2_5_pro_preview,
+      experimental: models.openrouter_gemini3_pro_preview,
+      ask: models.openrouter_gemini2_5_flash,
     }[costMode]
   }
   if (operation === 'check-new-files') {
     return {
-      lite: models.openrouter_claude_3_5_haiku,
-      normal: models.openrouter_claude_sonnet_4,
-      max: models.openrouter_claude_sonnet_4,
-      experimental: models.openrouter_claude_sonnet_4,
-      ask: models.openrouter_claude_sonnet_4,
+      lite: models.openrouter_gemini2_5_flash_lite,
+      normal: models.openrouter_gemini2_5_flash,
+      max: models.openrouter_gemini2_5_pro_preview,
+      experimental: models.openrouter_gemini3_pro_preview,
+      ask: models.openrouter_gemini2_5_flash,
     }[costMode]
   }
   throw new Error(`Unknown operation: ${operation}`)
@@ -172,42 +172,44 @@ export const getModelForMode = (
 // } as const
 
 export const openaiModels = {
-  gpt4_1: 'gpt-4.1-2025-04-14',
-  gpt4o: 'gpt-4o-2024-11-20',
-  gpt4omini: 'gpt-4o-mini-2024-07-18',
-  o3mini: 'o3-mini-2025-01-31',
-  o3: 'o3-2025-04-16',
-  o3pro: 'o3-pro-2025-06-10',
-  o4mini: 'o4-mini-2025-04-16',
-  generatePatch:
-    'ft:gpt-4o-2024-08-06:manifold-markets:generate-patch-batch2:AKYtDIhk',
+  // gpt4_1: 'gpt-4.1-2025-04-14',
+  // gpt4o: 'gpt-4o-2024-11-20',
+  // gpt4omini: 'gpt-4o-mini-2024-07-18',
+  // o3mini: 'o3-mini-2025-01-31',
+  // o3: 'o3-2025-04-16',
+  // o3pro: 'o3-pro-2025-06-10',
+  // o4mini: 'o4-mini-2025-04-16',
+  // generatePatch:
+  //   'ft:gpt-4o-2024-08-06:manifold-markets:generate-patch-batch2:AKYtDIhk',
 } as const
 export type OpenAIModel = (typeof openaiModels)[keyof typeof openaiModels]
 
 export const openrouterModels = {
-  openrouter_claude_sonnet_4_5: 'anthropic/claude-sonnet-4.5',
-  openrouter_claude_sonnet_4: 'anthropic/claude-4-sonnet-20250522',
-  openrouter_claude_opus_4: 'anthropic/claude-opus-4.1',
-  openrouter_claude_3_5_haiku: 'anthropic/claude-3.5-haiku-20241022',
-  openrouter_claude_3_5_sonnet: 'anthropic/claude-3.5-sonnet-20240620',
-  openrouter_gpt4o: 'openai/gpt-4o-2024-11-20',
-  openrouter_gpt5: 'openai/gpt-5.1',
-  openrouter_gpt5_chat: 'openai/gpt-5.1-chat',
-  openrouter_gpt4o_mini: 'openai/gpt-4o-mini-2024-07-18',
-  openrouter_gpt4_1_nano: 'openai/gpt-4.1-nano',
-  openrouter_o3_mini: 'openai/o3-mini-2025-01-31',
+  // openrouter_claude_sonnet_4_5: 'anthropic/claude-sonnet-4.5',
+  // openrouter_claude_sonnet_4: 'anthropic/claude-4-sonnet-20250522',
+  // openrouter_claude_opus_4: 'anthropic/claude-opus-4.1',
+  // openrouter_claude_3_5_haiku: 'anthropic/claude-3.5-haiku-20241022',
+  // openrouter_claude_3_5_sonnet: 'anthropic/claude-3.5-sonnet-20240620',
+  // openrouter_gpt4o: 'openai/gpt-4o-2024-11-20',
+  // openrouter_gpt5: 'openai/gpt-5.1',
+  // openrouter_gpt5_chat: 'openai/gpt-5.1-chat',
+  // openrouter_gpt4o_mini: 'openai/gpt-4o-mini-2024-07-18',
+  // openrouter_gpt4_1_nano: 'openai/gpt-4.1-nano',
+  // openrouter_o3_mini: 'openai/o3-mini-2025-01-31',
+  openrouter_gemini3_pro_preview: 'google/gemini-3-pro-preview',
   openrouter_gemini2_5_pro_preview: 'google/gemini-2.5-pro',
   openrouter_gemini2_5_flash: 'google/gemini-2.5-flash',
+  openrouter_gemini2_5_flash_lite: 'google/gemini-2.5-flash-lite',
   openrouter_gemini2_5_flash_thinking:
     'google/gemini-2.5-flash-preview:thinking',
-  openrouter_grok_4: 'x-ai/grok-4-07-09',
+  // openrouter_grok_4: 'x-ai/grok-4-07-09',
 } as const
 export type openrouterModel =
   (typeof openrouterModels)[keyof typeof openrouterModels]
 
 export const deepseekModels = {
-  deepseekChat: 'deepseek-chat',
-  deepseekReasoner: 'deepseek-reasoner',
+  // deepseekChat: 'deepseek-chat',
+  // deepseekReasoner: 'deepseek-reasoner',
 } as const
 export type DeepseekModel = (typeof deepseekModels)[keyof typeof deepseekModels]
 
@@ -247,19 +249,10 @@ export const models = {
 } as const
 
 export const shortModelNames = {
+  'gemini-3-pro': models.openrouter_gemini3_pro_preview,
   'gemini-2.5-pro': models.openrouter_gemini2_5_pro_preview,
   'flash-2.5': models.openrouter_gemini2_5_flash,
-  'opus-4': models.openrouter_claude_opus_4,
-  'sonnet-4.5': models.openrouter_claude_sonnet_4_5,
-  'sonnet-4': models.openrouter_claude_sonnet_4,
-  'sonnet-3.7': models.openrouter_claude_sonnet_4,
-  'sonnet-3.6': models.openrouter_claude_3_5_sonnet,
-  'sonnet-3.5': models.openrouter_claude_3_5_sonnet,
-  'gpt-4.1': models.gpt4_1,
-  'o3-mini': models.o3mini,
-  o3: models.o3,
-  'o4-mini': models.o4mini,
-  'o3-pro': models.o3pro,
+  'flash-2.5-lite': models.openrouter_gemini2_5_flash_lite,
 }
 
 export const providerModelNames = {
@@ -286,29 +279,20 @@ export const providerModelNames = {
 export type Model = (typeof models)[keyof typeof models] | (string & {})
 
 export const shouldCacheModels = [
-  'anthropic/claude-opus-4.1',
-  'anthropic/claude-sonnet-4',
-  'anthropic/claude-opus-4',
-  'anthropic/claude-3.7-sonnet',
-  'anthropic/claude-3.5-haiku',
-  'z-ai/glm-4.5',
-  'qwen/qwen3-coder',
+  'google/gemini-3-pro-preview',
+  'google/gemini-2.5-pro',
+  'google/gemini-2.5-flash',
+  'google/gemini-2.5-flash-lite',
 ]
-const nonCacheableModels = [
-  models.openrouter_grok_4,
-] satisfies string[] as string[]
+const nonCacheableModels = [] satisfies string[] as string[]
 export function supportsCacheControl(model: Model): boolean {
-  if (model.startsWith('openai/')) {
+  if (model.startsWith('google/')) {
+    // We assume Gemini supports caching via OpenRouter/Google if applicable
+    // But typically Google caching is different (Context Caching).
+    // For now, let's enable it if the backend supports it.
     return true
   }
-  if (model.startsWith('anthropic/')) {
-    return true
-  }
-  if (!isExplicitlyDefinedModel(model)) {
-    // Default to no cache control for unknown models
-    return false
-  }
-  return !nonCacheableModels.includes(model)
+  return false
 }
 
 export const TEST_USER_ID = 'test-user-id'

@@ -17,7 +17,7 @@ const definition: AgentDefinition = {
   id: 'my-custom-agent',
   displayName: 'My Custom Agent',
 
-  model: 'x-ai/grok-4-fast',
+  model: 'google/gemini-2.5-flash',
   spawnableAgents: ['codebuff/file-explorer@0.0.6'],
 
   // Check out .agents/types/tools.ts for more information on the tools you can include.

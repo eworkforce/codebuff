@@ -10,7 +10,7 @@ const definition: SecretAgentDefinition = {
   id: 'file-picker',
   displayName: 'Fletcher the File Fetcher',
   publisher,
-  model: 'google/gemini-2.0-flash-001',
+  model: 'google/gemini-2.5-flash',
   reasoningOptions: {
     enabled: false,
     effort: 'low',

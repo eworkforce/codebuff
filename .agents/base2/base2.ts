@@ -23,7 +23,7 @@ export function createBase2(
 
   return {
     publisher,
-    model: 'anthropic/claude-sonnet-4.5',
+    model: 'google/gemini-3-pro-preview',
     displayName: 'Buffy the Orchestrator',
     spawnerPrompt:
       'Advanced base agent that orchestrates planning, editing, and reviewing for complex coding tasks',

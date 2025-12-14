@@ -5,7 +5,7 @@ import type { SecretAgentDefinition } from '../types/secret-agent-definition'
 const definition: SecretAgentDefinition = {
   id: 'decomposing-thinker',
   publisher,
-  model: 'anthropic/claude-sonnet-4.5',
+  model: 'google/gemini-3-pro-preview',
   displayName: 'Decomposing Thinker',
   spawnerPrompt:
     'Creates comprehensive analysis by decomposing problems into multiple thinking angles and synthesizing insights from parallel thinker agents. Takes a list of files as context.',

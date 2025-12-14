@@ -120,7 +120,7 @@ export async function formatPrompt(
     [PLACEHOLDER.KNOWLEDGE_FILES_CONTENTS]: () =>
       Object.entries({
         ...Object.fromEntries(
-          Object.entries(fileContext.knowledgeFiles)
+          Object.entries(fileContext.knowledgeFiles ?? {})
             .filter(([path]) =>
               [
                 'knowledge.md',
@@ -131,7 +131,7 @@ export async function formatPrompt(
             )
             .map(([path, content]) => [path, content.trim()]),
         ),
-        ...fileContext.userKnowledgeFiles,
+        ...(fileContext.userKnowledgeFiles ?? {}),
       })
         .map(([path, content]) => {
           return `\`\`\`${path}\n${content.trim()}\n\`\`\``

@@ -6,7 +6,7 @@ import type { Message } from 'types/util-types'
 const editor: SecretAgentDefinition = {
   id: 'editor',
   publisher,
-  model: 'anthropic/claude-sonnet-4.5',
+  model: 'google/gemini-3-pro-preview',
   displayName: 'Code Editor',
   spawnerPrompt:
     'Expert code editor with access to tools to find and edit files, run terminal commands, and search the web. Can handle small to medium sized tasks, or work off of a plan for more complex tasks. For easy tasks, you can spawn this agent directly rather than invoking a researcher or planner first. Spawn mulitple in parallel if needed, but only on totally distinct tasks.',

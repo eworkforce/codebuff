@@ -7,7 +7,7 @@ import {
 const definition: SecretAgentDefinition = {
   id: 'generate-plan',
   publisher,
-  model: 'anthropic/claude-sonnet-4.5',
+  model: 'google/gemini-3-pro-preview',
   displayName: 'Plan Generator',
   spawnerPrompt:
     'Generates 5 alternative plans for a user request, analyzes them, and selects the best and simplest one that meets all requirements.',

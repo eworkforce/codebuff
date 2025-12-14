@@ -15,9 +15,9 @@ export const createCodeReviewerSelector = (options: {
   return {
     publisher,
     model: isSonnet
-      ? 'anthropic/claude-sonnet-4.5'
+      ? 'google/gemini-3-pro-preview'
       : isGpt5
-        ? 'openai/gpt-5.1'
+        ? 'google/gemini-2.5-pro'
         : 'google/gemini-3-pro-preview',
     ...((isGpt5 || isGemini) && {
       reasoningOptions: {

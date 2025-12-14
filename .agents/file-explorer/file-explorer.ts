@@ -22,7 +22,7 @@ const fileExplorer: SecretAgentDefinition = {
   displayName: 'Dora the File Explorer',
   spawnerPrompt:
     'Comprehensively explores the codebase and reports back on the results',
-  model: 'x-ai/grok-4-fast',
+  model: 'google/gemini-2.5-flash',
   publisher,
   outputMode: 'structured_output',
   includeMessageHistory: false,

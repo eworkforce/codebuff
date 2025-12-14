@@ -57,7 +57,7 @@ Be extremely concise.`,
 const definition: SecretAgentDefinition = {
   id: 'code-reviewer',
   publisher,
-  ...createReviewer('anthropic/claude-sonnet-4.5'),
+  ...createReviewer('google/gemini-3-pro-preview'),
 }
 
 export default definition

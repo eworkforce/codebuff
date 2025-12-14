@@ -6,7 +6,7 @@ const definition: SecretAgentDefinition = {
   publisher,
   displayName: 'Reid Searcher the Researcher',
   spawnerPrompt: `Expert at browsing the web or reading technical documentation to find relevant information.`,
-  model: 'x-ai/grok-4-fast',
+  model: 'google/gemini-2.5-flash',
   inputSchema: {
     prompt: {
       type: 'string',

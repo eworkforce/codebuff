@@ -6,7 +6,7 @@ import type { ToolMessage } from '../types/util-types'
 const definition: SecretAgentDefinition = {
   id: 'decision-maker',
   publisher,
-  model: 'openai/gpt-5.1',
+  model: 'google/gemini-2.5-pro',
   displayName: 'Decision Maker',
   spawnerPrompt:
     'Makes a decision based on the provided information and context. Use this to resolve tricky or important questions. Be sure to give it proper context on the problem you are trying to solve.',

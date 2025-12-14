@@ -53,12 +53,6 @@ const modelToAiSDKModel = (model: Model): LanguageModel => {
   ) {
     return vertexFinetuned(model)
   }
-  if (model === openaiModels.o3pro || model === openaiModels.o3) {
-    return openai.responses(model)
-  }
-  if (Object.values(openaiModels).includes(model as OpenAIModel)) {
-    return openai.languageModel(model)
-  }
   // All other models go through OpenRouter
   return openRouterLanguageModel(model)
 }

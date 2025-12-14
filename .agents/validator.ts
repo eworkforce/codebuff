@@ -4,7 +4,7 @@ import type { AgentDefinition } from './types/agent-definition'
 const definition: AgentDefinition = {
   id: 'validator',
   publisher,
-  model: 'anthropic/claude-sonnet-4.5',
+  model: 'google/gemini-3-pro-preview',
   displayName: 'Validator',
   spawnerPrompt:
     'Attempts to build/test/verify the project and automatically fix issues it finds. Useful after making edits or when CI/typecheck/tests are failing. Works across monorepos: discovers scripts (build/test/typecheck/lint), runs them, analyzes failures, and applies minimal fixes.',

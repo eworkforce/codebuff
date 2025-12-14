@@ -8,7 +8,7 @@ const definition: AgentDefinition = {
   id: 'context-pruner',
   publisher,
   displayName: 'Context Pruner',
-  model: 'openai/gpt-5-mini',
+  model: 'google/gemini-2.5-flash-lite',
 
   spawnerPrompt: `Spawn this agent between steps to prune context, starting with old tool results and then old messages.`,
 

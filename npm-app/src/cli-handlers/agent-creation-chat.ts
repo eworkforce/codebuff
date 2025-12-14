@@ -34,11 +34,11 @@ const AGENT_CREATION_STEPS = [
   },
   {
     question:
-      'Which model should this agent use? (Press Enter for default: anthropic/claude-4-sonnet-20250522)',
+      'Which model should this agent use? (Press Enter for default: google/gemini-2.5-pro)',
     field: 'model',
     placeholder:
-      'anthropic/claude-4-sonnet-20250522, gpt-4o, gemini-2.0-flash-exp',
-    defaultValue: 'anthropic/claude-4-sonnet-20250522',
+      'google/gemini-2.5-pro, google/gemini-3-pro-preview, google/gemini-2.5-flash',
+    defaultValue: 'google/gemini-2.5-pro',
   },
 ]
 
@@ -57,7 +57,7 @@ export function startAgentCreationChat(
           responses.purpose ||
           'A custom agent that helps with development tasks',
         specialty: responses.specialty || 'general development',
-        model: responses.model || 'anthropic/claude-4-sonnet-20250522',
+        model: responses.model || 'google/gemini-2.5-pro',
       }
 
       try {

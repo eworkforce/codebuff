@@ -5,7 +5,7 @@ const base2 = createBase2('default')
 const definition: SecretAgentDefinition = {
   ...base2,
   id: 'base2-plan-step',
-  model: 'anthropic/claude-sonnet-4.5',
+  model: 'google/gemini-3-pro-preview',
   displayName: 'Plan Step',
   spawnerPrompt: "Plans the next step in the user's request.",
 

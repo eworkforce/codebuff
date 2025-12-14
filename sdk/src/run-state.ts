@@ -392,10 +392,10 @@ export async function initialSessionState(
     fileTree,
     fileTokenScores,
     tokenCallers,
-    knowledgeFiles,
+    knowledgeFiles: knowledgeFiles ?? {},
     userKnowledgeFiles: {},
-    agentTemplates: processedAgentTemplates,
-    customToolDefinitions: processedCustomToolDefinitions,
+    agentTemplates: processedAgentTemplates ?? {},
+    customToolDefinitions: processedCustomToolDefinitions ?? {},
     gitChanges,
     changesSinceLastChat: {},
     shellConfigFiles: {},
@@ -503,6 +503,12 @@ export async function applyOverridesToSessionState(
     JSON.stringify(baseSessionState),
   ) as SessionState
 
+  // Ensure critical fields are initialized
+  sessionState.fileContext.customToolDefinitions ??= {}
+  sessionState.fileContext.knowledgeFiles ??= {}
+  sessionState.fileContext.userKnowledgeFiles ??= {}
+  sessionState.fileContext.agentTemplates ??= {}
+
   // Apply maxAgentSteps override
   if (overrides.maxAgentSteps !== undefined) {
     sessionState.mainAgentState.stepsRemaining = overrides.maxAgentSteps
@@ -542,7 +548,7 @@ export async function applyOverridesToSessionState(
       overrides.agentDefinitions,
     )
     sessionState.fileContext.agentTemplates = {
-      ...sessionState.fileContext.agentTemplates,
+      ...(sessionState.fileContext.agentTemplates ?? {}),
       ...processedAgentTemplates,
     }
   }
@@ -553,7 +559,7 @@ export async function applyOverridesToSessionState(
       overrides.customToolDefinitions,
     )
     sessionState.fileContext.customToolDefinitions = {
-      ...sessionState.fileContext.customToolDefinitions,
+      ...(sessionState.fileContext.customToolDefinitions ?? {}),
       ...processedCustomToolDefinitions,
     }
   }

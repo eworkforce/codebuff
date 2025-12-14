@@ -4,7 +4,7 @@ import { publisher } from '../../constants'
 const definition: SecretAgentDefinition = {
   id: 'thinker-selector',
   publisher,
-  model: 'anthropic/claude-sonnet-4.5',
+  model: 'google/gemini-3-pro-preview',
   displayName: 'Thinker Output Selector',
   spawnerPrompt: 'Analyzes multiple thinking outputs and selects the best one',
 

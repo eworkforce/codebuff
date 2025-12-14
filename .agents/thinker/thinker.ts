@@ -5,7 +5,7 @@ import type { SecretAgentDefinition } from '../types/secret-agent-definition'
 const definition: SecretAgentDefinition = {
   id: 'thinker',
   publisher,
-  model: 'anthropic/claude-sonnet-4.5',
+  model: 'google/gemini-3-pro-preview',
   displayName: 'Theo the Theorizer',
   spawnerPrompt:
     'Does deep thinking given the current messages and a specific prompt to focus on. Use this to help you solve a specific problem.',

@@ -5,7 +5,7 @@ const definition: AgentDefinition = {
   id: 'deep-thinker',
   displayName: 'Deep Thinker Agent',
   publisher,
-  model: 'openai/gpt-5.1',
+  model: 'google/gemini-2.5-pro',
   reasoningOptions: {
     enabled: true,
     effort: 'high',

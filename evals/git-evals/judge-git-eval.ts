@@ -188,7 +188,7 @@ export async function judgeEvalRun(evalRun: EvalRunLog) {
     promptAiSdkStructured({
       messages: [userMessage(finalPrompt)],
       schema: JudgingAnalysisSchema,
-      model: models.openrouter_gemini2_5_pro_preview,
+      model: models.openrouter_gemini3_pro_preview,
       clientSessionId: generateCompactId(),
       fingerprintId: generateCompactId(),
       userInputId: generateCompactId(),

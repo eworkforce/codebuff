@@ -212,7 +212,7 @@ describe('Initial Session State', () => {
         id: 'custom-agent',
         displayName: 'Custom Agent',
         spawnerPrompt: 'A custom agent',
-        model: 'anthropic/claude-4-sonnet-20250522',
+        model: 'google/gemini-2.5-pro',
         outputMode: 'last_message' as const,
         includeMessageHistory: false,
         inheritParentSystemPrompt: false,

@@ -30,7 +30,7 @@ const directoryLister: SecretAgentDefinition = {
   displayName: 'Directory Lister',
   spawnerPrompt:
     'Mechanically lists multiple directories and returns their contents',
-  model: 'anthropic/claude-sonnet-4.5',
+  model: 'google/gemini-3-pro-preview',
   publisher,
   includeMessageHistory: false,
   outputMode: 'structured_output',

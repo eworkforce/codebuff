@@ -15,7 +15,7 @@ type StepInfo = {
 const definition: SecretAgentDefinition = {
   id: 'iterative-orchestrator',
   publisher,
-  model: 'anthropic/claude-sonnet-4.5',
+  model: 'google/gemini-3-pro-preview',
   displayName: 'Iterative Orchestrator',
   spawnerPrompt:
     'Orchestrates the completion of a large task through batches of independent steps.',

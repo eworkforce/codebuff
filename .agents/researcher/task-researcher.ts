@@ -14,7 +14,7 @@ export const createTaskResearcher: () => Omit<
 > = () => {
   return {
     publisher,
-    model: 'anthropic/claude-sonnet-4.5',
+    model: 'google/gemini-3-pro-preview',
     displayName: 'Task Researcher',
     spawnerPrompt:
       'Expert researcher that finds relevant information about a coding task and creates a report with the key facts and relevant files.',

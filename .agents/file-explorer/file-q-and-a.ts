@@ -19,7 +19,7 @@ const fileQAndA: SecretAgentDefinition = {
   displayName: 'Quinn the File Q&A',
   spawnerPrompt:
     'Reads a single file and answers questions about it - can summarize, explain specific parts, or excerpt portions of the file',
-  model: 'x-ai/grok-4-fast',
+  model: 'google/gemini-2.5-flash',
   publisher,
   outputMode: 'last_message',
   includeMessageHistory: false,

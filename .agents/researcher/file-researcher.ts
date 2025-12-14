@@ -9,7 +9,7 @@ export const createFileResearcher: () => Omit<
 > = () => {
   return {
     publisher,
-    model: 'anthropic/claude-sonnet-4.5',
+    model: 'google/gemini-3-pro-preview',
     displayName: 'File Researcher',
     spawnerPrompt:
       "Expert researcher that finds relevant information about a coding task and creates a report with the relevant parts of the codebase and how they relate to the user's request.",

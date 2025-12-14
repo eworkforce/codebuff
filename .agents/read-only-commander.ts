@@ -4,7 +4,7 @@ import { type SecretAgentDefinition } from './types/secret-agent-definition'
 const readOnlyCommander: SecretAgentDefinition = {
   id: 'read-only-commander',
   publisher,
-  model: 'anthropic/claude-sonnet-4.5',
+  model: 'google/gemini-3-pro-preview',
   displayName: 'ReadOnly Commander',
   spawnerPrompt:
     'Can run read-only terminal commands to answer questions with good analysis. Feel free to spawn mulitple in parallel.',

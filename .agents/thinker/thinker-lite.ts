@@ -5,7 +5,7 @@ const definition: SecretAgentDefinition = {
   ...thinker,
   id: 'thinker-lite',
   displayName: 'Thinker Lite',
-  model: 'x-ai/grok-4-fast',
+  model: 'google/gemini-2.5-flash',
 }
 
 export default definition

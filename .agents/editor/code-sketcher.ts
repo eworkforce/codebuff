@@ -5,7 +5,7 @@ const definition: SecretAgentDefinition = {
   id: 'code-sketcher',
   displayName: 'Code Sketcher',
   publisher,
-  model: 'anthropic/claude-sonnet-4.5',
+  model: 'google/gemini-3-pro-preview',
   spawnerPrompt:
     'Spawn to sketch the code that will be needed to accomplish the task, focusing on the the key sections of logic or interfaces. Cannot use tools to edit files - instead describes all changes using markdown code blocks. Does not spawn other agents.',
   inputSchema: {

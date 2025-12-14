@@ -7,7 +7,7 @@ const codebaseExplorer: SecretAgentDefinition = {
   displayName: 'Codebase Explorer',
   spawnerPrompt:
     'Orchestrates multiple exploration agents to comprehensively analyze the codebase and answer questions.',
-  model: 'anthropic/claude-sonnet-4.5',
+  model: 'google/gemini-3-pro-preview',
   publisher,
   outputMode: 'last_message',
   includeMessageHistory: false,

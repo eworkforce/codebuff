@@ -7,7 +7,7 @@ const definition: SecretAgentDefinition = {
   id: 'researcher-sonnet',
   publisher,
   displayName: 'Researcher Sonnet',
-  model: 'anthropic/claude-sonnet-4.5',
+  model: 'google/gemini-3-pro-preview',
 
   spawnableAgents: [
     'file-explorer',

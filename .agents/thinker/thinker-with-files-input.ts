@@ -6,7 +6,7 @@ import type { ToolMessage } from '../types/util-types'
 const definition: SecretAgentDefinition = {
   id: 'thinker-with-files-input',
   publisher,
-  model: 'anthropic/claude-sonnet-4.5',
+  model: 'google/gemini-3-pro-preview',
   displayName: 'Theo the Theorizer with Files Input',
   spawnerPrompt:
     'Does deep thinking given the prompt and provided files. Use this to help you solve a specific problem.',
