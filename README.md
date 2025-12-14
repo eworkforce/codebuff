@@ -1,245 +1,140 @@
 # Codebuff
 
-Codebuff is an **open-source AI coding assistant** that edits your codebase through natural language instructions. Instead of using one model for everything, it coordinates specialized agents that work together to understand your project and make precise changes.
+Codebuff is an **open-source, self-hostable AI coding assistant** that edits your codebase through natural language instructions. It uses a sophisticated multi-agent architecture to understand your project, plan changes, and execute them with precision.
+
+Unlike other tools that rely on proprietary cloud services, Codebuff can run **entirely on your machine** or your own infrastructure, giving you full control over your data and model usage.
 
 <div align="center">
   <img src="./assets/codebuff-vs-claude-code.png" alt="Codebuff vs Claude Code" width="400">
 </div>
 
-Codebuff beats Claude Code at 61% vs 53% on [our evals](evals/README.md) across 175+ coding tasks over multiple open-source repos that simulate real-world tasks.
+Codebuff supports **Google Gemini 3 Pro**, **Gemini 2.5**, and other state-of-the-art models via OpenRouter or direct integration.
 
-![Codebuff Demo](./assets/demo.gif)
+## Key Features
 
-## How it works
+- **🏠 Fully Self-Hostable**: Run the entire stack (CLI, Backend, Database) locally. No usage limits, no credit system required.
+- **🤖 Multi-Agent Architecture**: Specialized agents for File Exploration, Planning, Editing, and Reviewing work together.
+- **⚡ Direct Model Access**: Connect directly to Google's Gemini API or OpenRouter without intermediate proxies.
+- **🛠️ Extensible SDK**: Build custom agents and tools using TypeScript.
 
-When you ask Codebuff to "add authentication to my API," it might invoke:
+## Quick Start (Self-Hosted)
 
-1. A **File Explorer Agent** to scan your codebase to understand the architecture and find relevant files
-2. A **Planner Agent** to plan which files need changes and in what order
-3. An **Editor Agent** to make precise edits
-4. A **Reviewer Agent** to validate changes
+Codebuff is designed to be easy to self-host. Follow these steps to get running in minutes:
 
-<div align="center">
-  <img src="./assets/multi-agents.png" alt="Codebuff Multi-Agents" width="250">
-</div>
+### 1. Prerequisites
 
-This multi-agent approach gives you better context understanding, more accurate edits, and fewer errors compared to single-model tools.
+- **Bun**: Codebuff uses [Bun](https://bun.sh) for fast execution.
+  ```bash
+  curl -fsSL https://bun.sh/install | bash
+  ```
+- **PostgreSQL**: You need a local Postgres database running.
+  ```bash
+  # Example using Docker
+  docker run -d --name codebuff-db -e POSTGRES_PASSWORD=secretpassword_local -p 5432:5432 postgres
+  ```
 
-## CLI: Install and start coding
-
-Install:
-
-```bash
-npm install -g codebuff
-```
-
-Run:
+### 2. Setup Repository
 
 ```bash
-cd your-project
-codebuff
+git clone https://github.com/eworkforce/codebuff.git
+cd codebuff
+bun install
 ```
 
-Then just tell Codebuff what you want and it handles the rest:
+### 3. Configure Environment
 
-- "Fix the SQL injection vulnerability in user registration"
-- "Add rate limiting to all API endpoints"
-- "Refactor the database connection code for better performance"
-
-Codebuff will find the right files, makes changes across your codebase, and runs tests to make sure nothing breaks.
-
-### CLI Options
-
-Control how Codebuff runs with these flags:
-
-**Quality & Performance**:
-- `--lite` - Use budget models and fetch fewer files (faster, lower cost)
-- `--max` - Use higher quality models and fetch more files (thorough, slower)
-
-**Modes**:
-- `--ask` - Ask mode, won't change code (safe for exploration)
-- `--print, -p` - Print-only mode, run once and exit (for scripts/CI)
-
-**Agent Control**:
-- `--agent <id>` - Run specific agent (e.g., `--agent file-picker`)
-- `--spawn <id>` - Spawn agent directly (e.g., `--spawn reviewer`)
-- `--params <json>` - Pass JSON parameters to agent
-
-**Debugging**:
-- `--trace` - Log all subagent activity to `.agents/traces/*.log`
-- `--cwd <dir>` - Run in specific directory instead of current
-
-**Project Setup**:
-- `--init` - Initialize Codebuff for your project
-- `--create <template>` - Create new project from template
-
-Run `codebuff --help` for full details and examples.
-
-## Create custom agents
-
-To get started building your own agents, run:
+Copy the example environment file and configure your API keys:
 
 ```bash
-codebuff init-agents
+cp .env.example .env
 ```
 
-> 💡 **Tip**: This command creates a comprehensive agent development guide at `.agents/README.md` (293 lines) with detailed documentation, complete examples, and full TypeScript type definitions. Start there for complete guidance.
+Edit `.env` and set your model keys:
+```env
+# For direct Google model access (Recommended for self-hosting)
+GOOGLE_GENERATIVE_AI_API_KEY=your_gemini_api_key
 
-This creates:
-```
-.agents/
-├── README.md              # Comprehensive 293-line agent guide
-├── my-custom-agent.ts     # Working agent template to edit
-├── package.json           # NPM package configuration
-├── LICENSE                # Apache-2.0 license for publishing
-├── examples/              # 3 example agents (basic → advanced)
-└── types/                 # Complete TypeScript definitions
+# Database URL
+DATABASE_URL=postgresql://postgres:secretpassword_local@localhost:5432/postgres
 ```
 
-You can write agent definition files that give you maximum control over agent behavior.
+### 4. Initialize Local Environment
 
-Implement your workflows by specifying tools, which agents can be spawned, and prompts. We even have TypeScript generators for more programmatic control.
+We provide helper scripts to setup your local user and publisher:
 
-For example, here's a `git-committer` agent that creates git commits based on the current git state. Notice that it runs `git diff` and `git log` to analyze changes, but then hands control over to the LLM to craft a meaningful commit message and perform the actual commit.
+```bash
+# 1. Start the database (if not using docker command above)
+bun run start-db
 
-```typescript
-export default {
-  id: 'git-committer',
-  displayName: 'Git Committer',
-  model: 'google/gemini-2.5-flash',
-  toolNames: ['read_files', 'run_terminal_command', 'end_turn'],
+# 2. Run migrations
+bun --cwd packages/internal run db:migrate
 
-  instructionsPrompt:
-    'You create meaningful git commits by analyzing changes, reading relevant files for context, and crafting clear commit messages that explain the "why" behind changes.',
+# 3. Create a local admin user (grants unlimited credits)
+bun run scripts/create-local-user.ts
 
-  async *handleSteps() {
-    // Analyze what changed
-    yield { tool: 'run_terminal_command', command: 'git diff' }
-    yield { tool: 'run_terminal_command', command: 'git log --oneline -5' }
-
-    // Stage files and create commit with good message
-    yield 'STEP_ALL'
-  },
-}
+# 4. Create the default 'codebuff' publisher
+bun run scripts/create-publisher.ts
 ```
 
-## SDK: Run agents in production
+### 5. Run Codebuff
 
-Install the [SDK package](https://www.npmjs.com/package/@codebuff/sdk) -- note this is different than the CLI codebuff package.
+You need two terminals:
+
+**Terminal 1: Backend Server**
+```bash
+bun run start-server
+# Runs on port 4242
+```
+
+**Terminal 2: CLI**
+```bash
+bun --cwd cli dev
+```
+
+Now you can chat with Codebuff directly in your terminal!
+
+## Architecture
+
+Codebuff consists of three main components:
+
+1.  **CLI (TUI)**: A rich terminal user interface built with React and OpenTUI. It handles user input and displays agent progress.
+2.  **Backend Server**: An Express/WebSocket server that orchestrates agents, manages context, and communicates with LLMs.
+3.  **SDK**: A TypeScript library for building and running agents programmatically.
+
+In self-hosted mode, the CLI connects directly to your local Backend Server (`localhost:4242`), which communicates directly with model providers (Google, OpenRouter).
+
+## Development
+
+See [WARP.md](./WARP.md) for detailed development guidelines, architectural deep dives, and contribution rules.
+
+## SDK Usage
+
+You can also use Codebuff programmatically in your own applications:
 
 ```bash
 npm install @codebuff/sdk
 ```
 
-Import the client and run agents!
-
 ```typescript
 import { CodebuffClient } from '@codebuff/sdk'
 
-// 1. Initialize the client
 const client = new CodebuffClient({
-  apiKey: 'your-api-key',
-  cwd: '/path/to/your/project',
-  onError: (error) => console.error('Codebuff error:', error.message),
+  apiKey: 'your-local-api-key', // From scripts/create-local-user.ts output
+  cwd: process.cwd()
 })
 
-// 2. Do a coding task...
 const result = await client.run({
-  agent: 'base', // Codebuff's base coding agent
-  prompt: 'Add comprehensive error handling to all API endpoints',
-  handleEvent: (event) => {
-    console.log('Progress', event)
-  },
+  agent: 'base',
+  prompt: 'Refactor this file to use async/await'
 })
 
-// 3. Or, run a custom agent!
-const myCustomAgent: AgentDefinition = {
-  id: 'greeter',
-  displayName: 'Greeter',
-  model: 'google/gemini-2.5-flash',
-  instructionsPrompt: 'Say hello!',
-}
-await client.run({
-  agent: 'greeter',
-  agentDefinitions: [myCustomAgent],
-  prompt: 'My name is Bob.',
-  customToolDefinitions: [], // Add custom tools too!
-  handleEvent: (event) => {
-    console.log('Progress', event)
-  },
-})
+console.log(result.output)
 ```
 
-Learn more about the SDK [here](https://www.npmjs.com/package/@codebuff/sdk).
+## Contributing
 
-## Why choose Codebuff
+We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 
-**Deep customizability**: Create sophisticated agent workflows with TypeScript generators that mix AI generation with programmatic control. Define custom agents that spawn subagents, implement conditional logic, and orchestrate complex multi-step processes that adapt to your specific use cases.
+## License
 
-**Any model on OpenRouter**: Unlike Claude Code which locks you into Anthropic's models, Codebuff supports any model available on [OpenRouter](https://openrouter.ai/models) - from Claude and GPT to specialized models like Qwen, DeepSeek, and others. Switch models for different tasks or use the latest releases without waiting for platform updates.
-
-**Reuse any published agent**: Compose existing [published agents](https://www.codebuff.com/store) to get a leg up. Codebuff agents are the new MCP!
-
-**Fully customizable SDK**: Build Codebuff's capabilities directly into your applications with a complete TypeScript SDK. Create custom tools, integrate with your CI/CD pipeline, build AI-powered development environments, or embed intelligent coding assistance into your products.
-
-## Contributing to Codebuff
-
-We ❤️ contributions from the community - whether you're fixing bugs, tweaking our agents, or improving documentation.
-
-**Want to contribute?** Check out our [Contributing Guide](./CONTRIBUTING.md) to get started.
-
-### Running Tests
-
-To run the test suite:
-
-```bash
-cd cli
-bun test
-```
-
-**For interactive E2E testing**, install tmux:
-
-```bash
-# macOS
-brew install tmux
-
-# Ubuntu/Debian
-sudo apt-get install tmux
-
-# Windows (via WSL)
-wsl --install
-sudo apt-get install tmux
-```
-
-See [cli/src/__tests__/README.md](cli/src/__tests__/README.md) for comprehensive testing documentation.
-
-Some ways you can help:
-
-- 🐛 **Fix bugs** or add features
-- 🤖 **Create specialized agents** and publish them to the Agent Store
-- 📚 **Improve documentation** or write tutorials
-- 💡 **Share ideas** in our [GitHub Issues](https://github.com/CodebuffAI/codebuff/issues)
-
-## Get started
-
-### Install
-
-**CLI**: `npm install -g codebuff`
-
-**SDK**: `npm install @codebuff/sdk`
-
-### Resources
-
-**Documentation**: [codebuff.com/docs](https://codebuff.com/docs)
-
-**Community**: [Discord](https://codebuff.com/discord) - Join our friendly community
-
-**Issues & Ideas**: [GitHub Issues](https://github.com/CodebuffAI/codebuff/issues)
-
-**Contributing**: [CONTRIBUTING.md](./CONTRIBUTING.md) - Start here to contribute!
-
-**Support**: [support@codebuff.com](mailto:support@codebuff.com)
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=CodebuffAI/codebuff&type=Date)](https://www.star-history.com/#CodebuffAI/codebuff&Date)
+[Apache 2.0](./LICENSE)
