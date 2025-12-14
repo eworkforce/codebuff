@@ -1,0 +1,19 @@
+#!/bin/bash
+# Wrapper script to run codebuff CLI from anywhere
+REPO_ROOT="/home/serge/projects/codebuff"
+
+# Check if backend is running
+if ! pgrep -f "bun.*start-server" > /dev/null; then
+  echo "⚠️  Backend server is not running!"
+  echo "Starting backend server in the background..."
+  cd "$REPO_ROOT" && nohup bun run start-server > "$REPO_ROOT/backend.log" 2>&1 &
+  BACKEND_PID=$!
+  echo "🚀 Backend started (PID: $BACKEND_PID). Logs at $REPO_ROOT/backend.log"
+  echo "Waiting for backend to be ready..."
+  sleep 3
+fi
+
+# Run the CLI, passing all arguments
+# We cd into the directory first to ensure reliable bun execution
+cd "$REPO_ROOT/cli"
+exec bun run dev "$@"

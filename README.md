@@ -78,20 +78,38 @@ bun run scripts/create-publisher.ts
 
 ### 5. Run Codebuff
 
-You need two terminals:
+To run Codebuff from any directory, add the helper script to your PATH:
+
+**For Zsh users:**
+```bash
+echo 'export PATH="$HOME/projects/codebuff/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+**For Bash users:**
+```bash
+echo 'export PATH="$HOME/projects/codebuff/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+Now you can run `codebuff` from anywhere! The wrapper script automatically starts the backend server if it's not running.
+
+```bash
+cd ~/my-project
+codebuff
+```
+
+Alternatively, you can run it manually from the repo:
 
 **Terminal 1: Backend Server**
 ```bash
 bun run start-server
-# Runs on port 4242
 ```
 
 **Terminal 2: CLI**
 ```bash
 bun --cwd cli dev
 ```
-
-Now you can chat with Codebuff directly in your terminal!
 
 ## Architecture
 
